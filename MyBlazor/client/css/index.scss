@@ -1,0 +1,71 @@
+@import 'bootstrap';
+@import '@fortawesome/fontawesome-free/css/all';
+
+html {
+    height: 100vh;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+
+    .tab-panel {
+        @mixin active-nav-link {
+            color: white;
+            background-color: #00b48c;
+
+            .nav-link {
+                color: white;
+            }
+
+            button {
+                color: white;
+            }
+        }
+
+        $inactive-color: grey;
+
+        .nav-item {
+            color: $inactive-color;
+            border-color: $inactive-color;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 0.25rem;
+            background-color: white;
+
+            div {
+                .nav-link {
+                    display: inline;
+                    text-decoration: none;
+                    color: $inactive-color;
+                }
+
+                button {
+                    border: 0;
+                    background-color: transparent;
+
+                    &:hover {
+                        color: red;
+                    }
+
+                    &:active {
+                        color: red;
+                    }
+                }
+            }
+
+            &.active {
+                @include active-nav-link;
+            }
+
+            &:hover {
+                @include active-nav-link;
+            }
+
+            &:active {
+                @include active-nav-link;
+            }
+        }
+    }
+}
