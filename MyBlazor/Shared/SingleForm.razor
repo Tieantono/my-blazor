@@ -1,0 +1,35 @@
+﻿<div class="row form-group">
+    <div class="col-md-12">
+        <label>
+            Title
+        </label>
+
+        <input value="@FormModel.Name" type="text" @onchange="(ChangeEventArgs e) => { FormModel.Name = e.Value.ToString(); OnChange(); }" class="form-control" />
+
+        <ValidationMessage For="() => FormModel.Name"></ValidationMessage>
+    </div>
+</div>
+
+@using MyBlazor.Models.Form
+@code {
+    [CascadingParameter]
+    public TabNav<SingleTextInputForm> Parent { get; set; }
+
+    [Parameter]
+    public SingleTextInputForm FormModel { get; set; }
+
+    /// <summary>
+    /// Single form component for testing purpose.
+    /// </summary>
+    public SingleForm()
+    {
+
+    }
+
+    public void OnChange()
+    {
+        Parent.SetTitle(FormModel.Name);
+
+        StateHasChanged();
+    }
+}

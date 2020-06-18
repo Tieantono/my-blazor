@@ -11,42 +11,47 @@
         }
     </div>*@
 
-<ul class="nav nav-pills tab-panel">
-    @foreach (var tabPage in Pages)
-    {
-        <li class="nav-item @GetActiveNavClass(tabPage)">
-            <div class="d-flex">
-                <a href="#"
-                   @onclick="() => ActivatePage(tabPage)"
-                   @onclick:preventDefault
-                   class="nav-link">
-                    @tabPage.Text
-                </a>
-
-                @if (Static == false)
-                {
-                    <button type="button" aria-label="Close"
-                            @onclick="() => ClosePage(tabPage)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                }
-            </div>
-        </li>
-    }
-    <li class="d-flex">
-        <button class="btn btn-success">
-            <i class="fas fa-plus"></i>
-        </button>
-    </li>
-</ul>
-
 <CascadingValue Value="this">
-    @ChildContent
+    <ul class="nav nav-pills tab-panel">
+        @foreach (var tabPage in Pages)
+        {
+            <li class="nav-item @GetActiveNavClass(tabPage)">
+                <div class="d-flex">
+                    <a href="#"
+                       @onclick="() => ActivatePage(tabPage)"
+                       @onclick:preventDefault
+                       class="nav-link">
+                        @*@tabPage.Text*@
+                    </a>
+
+                    @if (Static == false)
+                    {
+                        <button type="button" aria-label="Close"
+                                @onclick="() => ClosePage(tabPage)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    }
+                </div>
+            </li>
+        }
+        <li class="d-flex">
+            <button class="btn btn-success">
+                <i class="fas fa-plus"></i>
+            </button>
+        </li>
+    </ul>
+
+    @*@Tabs*@
 </CascadingValue>
 
+@*@typeparam TItem*@ 
 @code {
+
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment Tabs { get; set; }
+
+    [Parameter]
+    public RenderFragment<TabPage> TabTextTemplate { get; set; }
 
     [Parameter]
     public bool Static { get; set; }
@@ -54,6 +59,10 @@
     public TabPage ActivePage { get; set; }
 
     private List<TabPage> Pages { get; set; } = new List<TabPage>();
+
+    protected override void OnInitialized()
+    {
+    }
 
     public void AddPage(TabPage tabPage)
     {

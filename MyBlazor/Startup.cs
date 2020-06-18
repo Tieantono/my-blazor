@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +22,10 @@ namespace MyBlazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            // Decided not using this technique.
+            // services.AddScoped<TabNavState>();
+
+            services.AddValidatorsFromAssemblyContaining<Program>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
