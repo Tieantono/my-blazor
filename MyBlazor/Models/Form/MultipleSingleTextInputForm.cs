@@ -10,16 +10,13 @@ namespace MyBlazor.Models.Form
     {
         public List<SingleTextInputForm> SingleForms { get; set; }
 
-        public List<SingleTextInputForm> SecondarySingleForms { get; set; }
     }
 
     public class MultipleSingleTextInputFormValidator : AbstractValidator<MultipleSingleTextInputForm>
     {
-        public MultipleSingleTextInputFormValidator()
+        public MultipleSingleTextInputFormValidator(IValidator<SingleTextInputForm> singleFormValidator)
         {
-            RuleForEach(Q => Q.SingleForms).SetValidator(new SingleTextInputFormValidator());
-
-            RuleForEach(Q => Q.SecondarySingleForms).SetValidator(new SingleTextInputFormValidator());
+            RuleForEach(Q => Q.SingleForms).SetValidator(singleFormValidator);
         }
     }
 }

@@ -10,6 +10,15 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-body">
+        @foreach (var nestedForm in FormModel.NestedForms)
+        {
+            <NestedForm Form="nestedForm"></NestedForm>
+        }
+    </div>
+</div>
+
 @using MyBlazor.Models.Form
 @code {
     [CascadingParameter]
@@ -28,7 +37,7 @@
 
     public void OnChange()
     {
-        Parent.SetTitle(FormModel.Name);
+        //Parent.SetTitle(FormModel.Name);
 
         StateHasChanged();
     }

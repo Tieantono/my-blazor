@@ -1,0 +1,12 @@
+﻿<div class="form-group">
+    <label>My Text</label>
+
+    <input @bind-value="@Form.MyText" type="text" class="form-control" />
+
+    <ValidationMessage For="() => Form.MyText"></ValidationMessage>
+</div>
+
+@code {
+    [Parameter]
+    public MyBlazor.Models.Form.NestedTextInputForm Form { get; set; }
+}

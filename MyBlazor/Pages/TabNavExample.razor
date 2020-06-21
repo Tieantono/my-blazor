@@ -4,17 +4,8 @@
 
 <EditForm Model="Form" OnValidSubmit="OnValidSubmit">
     <FluentValidator></FluentValidator>
-    <TabNav TItem="SingleTextInputForm" Tabs="Tabs" OnClickAdd="OnClickAdd">
-        <TabContent Context="form">
-            <div class="card">
-                <div class="card-body p-3">
-                    <SingleForm FormModel="form"></SingleForm>
-                </div>
-            </div>
-        </TabContent>
-    </TabNav>
 
-    <TabNav TItem="SingleTextInputForm" Tabs="SecondaryTabs" OnClickAdd="OnClickSecondaryAdd">
+    <TabNav TItem="SingleTextInputForm" Tabs="Tabs" OnClickAdd="OnClickAdd">
         <TabContent Context="form">
             <div class="card">
                 <div class="card-body p-3">
@@ -58,8 +49,7 @@
         {
             Form = new MultipleSingleTextInputForm
             {
-                SingleForms = new List<SingleTextInputForm>(),
-                SecondarySingleForms = new List<SingleTextInputForm>()
+                SingleForms = new List<SingleTextInputForm>()
             };
 
             // Create 3 single form objects.
@@ -68,29 +58,14 @@
             {
                 // Create object reference.
                 var singleForm = new SingleTextInputForm();
+                var nestedForm = new NestedTextInputForm();
+                singleForm.NestedForms.Add(nestedForm);
 
                 // Add object to form's first list.
                 Form.SingleForms.Add(singleForm);
                 Tabs.Add(new TabItem<SingleTextInputForm>()
                 {
                     Title = "Test #" + (i + 1),
-                    // Assign the object reference.
-                    Item = singleForm
-                });
-            }
-
-            var secondaryFormCount = 2;
-            for (var i = 0; i < secondaryFormCount; i++)
-            {
-                // Create object reference.
-                var singleForm = new SingleTextInputForm();
-
-                // Add object to form's secondary list.
-                Form.SecondarySingleForms.Add(singleForm);
-                SecondaryTabs.Add(new TabItem<SingleTextInputForm>()
-                {
-                    Title = "Test #" + (i + 1),
-
                     // Assign the object reference.
                     Item = singleForm
                 });
@@ -108,22 +83,6 @@
 
         Form.SingleForms.Add(singleForm);
         this.Tabs.Add(new TabItem<SingleTextInputForm>
-        {
-            Title = "Test #" + tabCount,
-            Item = singleForm
-        });
-    }
-
-    /// <summary>
-    /// Private method for handling the event on secondary tab's add button.
-    /// </summary>
-    /// <param name="tabCount"></param>
-    private void OnClickSecondaryAdd(int tabCount)
-    {
-        var singleForm = new SingleTextInputForm();
-
-        Form.SecondarySingleForms.Add(singleForm);
-        this.SecondaryTabs.Add(new TabItem<SingleTextInputForm>
         {
             Title = "Test #" + tabCount,
             Item = singleForm

@@ -9,14 +9,18 @@ namespace MyBlazor.Models.Form
     public class SingleTextInputForm
     {
         public string Name { get; set; }
+
+        public List<NestedTextInputForm> NestedForms { get; set; } = new List<NestedTextInputForm>();
     }
 
     public class SingleTextInputFormValidator : AbstractValidator<SingleTextInputForm>
     {
-        public SingleTextInputFormValidator()
+        public SingleTextInputFormValidator(IValidator<NestedTextInputForm> nestedFormValidator)
         {
             RuleFor(Q => Q.Name)
                 .NotEmpty();
+
+            RuleForEach(Q => Q.NestedForms).SetValidator(nestedFormValidator);
         }
     }
 }
